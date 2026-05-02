@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Self-Gated Evidential Fusion for Cloud-Robust Flood Mapping &middot; EGU 2026</title>
+<meta name="description" content="EGU 2026 poster supplement: Self-Gated Evidential Fusion for cloud-robust flood inundation mapping with Sentinel-1 and Sentinel-2.">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #6b6b6b;
+    --rule: #e6e3dc;
+    --accent: #1a4d7c;
+    --accent-ink: #ffffff;
+    --accent-soft: #eef3f8;
+    --tag: #f0ece2;
+    --tag-ink: #5a4a1f;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
+    --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161a;
+      --surface: #1c1f24;
+      --ink: #ececec;
+      --ink-soft: #c4c4c4;
+      --ink-mute: #9a9a9a;
+      --rule: #2c3038;
+      --accent: #6ea8d6;
+      --accent-ink: #0d1115;
+      --accent-soft: #21303f;
+      --tag: #2a2620;
+      --tag-ink: #d6c799;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.3);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+                 "Inter", "Source Sans 3", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 48px;
+  }
+
+  /* ---------- Header ---------- */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--tag);
+    color: var(--tag-ink);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--tag-ink);
+  }
+
+  h1 {
+    font-size: clamp(1.4rem, 4.6vw, 1.85rem);
+    line-height: 1.25;
+    margin: 14px 0 6px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    color: var(--ink-mute);
+    font-size: 0.95rem;
+    margin: 0 0 18px;
+    font-style: italic;
+  }
+
+  /* ---------- Author block ---------- */
+  .authors {
+    margin: 18px 0 22px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .author-name {
+    font-weight: 600;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .author-aff {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    margin-top: 2px;
+  }
+  .author-meta {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    font-size: 0.88rem;
+  }
+  .author-meta a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color .15s ease;
+  }
+  .author-meta a:hover { border-bottom-color: var(--accent); }
+  .author-meta .label {
+    color: var(--ink-mute);
+    margin-right: 4px;
+  }
+
+  /* ---------- CTA buttons ---------- */
+  .cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 22px 0 28px;
+  }
+  @media (max-width: 480px) {
+    .cta { grid-template-columns: 1fr; }
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 16px;
+    min-height: 52px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.98rem;
+    text-decoration: none;
+    text-align: center;
+    transition: transform .12s ease, box-shadow .12s ease, background .15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: var(--shadow);
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+  }
+  .btn-secondary:hover { background: var(--accent-soft); }
+  .btn .icon {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- Sections ---------- */
+  section { margin: 28px 0; }
+  h2 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  p { margin: 0 0 12px; color: var(--ink-soft); }
+  .abstract p { color: var(--ink); font-size: 1rem; }
+
+  /* ---------- Conference info ---------- */
+  .conf {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+  .conf-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    font-size: 0.93rem;
+  }
+  .conf-row + .conf-row { border-top: 1px dashed var(--rule); }
+  .conf-key { color: var(--ink-mute); flex-shrink: 0; }
+  .conf-val { color: var(--ink); text-align: right; font-weight: 500; }
+  .conf-val a { color: var(--accent); text-decoration: none; }
+  .conf-val a:hover { text-decoration: underline; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-mute);
+    font-size: 0.82rem;
+    text-align: center;
+  }
+  footer a { color: var(--ink-mute); }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <span class="eyebrow">EGU 2026 &middot; Poster Supplement</span>
+
+  <h1>Self-Gated Evidential Fusion for Cloud-Robust Flood Inundation Mapping with Sentinel-1 and Sentinel-2</h1>
+  <p class="subtitle">A label-free, cross-branch routing mechanism for shared-attention remote sensing foundation models.</p>
+
+  <div class="authors">
+    <div class="author-name">[Your Name]<sup>1</sup></div>
+    <div class="author-aff"><sup>1</sup> [Your Institution / Department], [City, Country]</div>
+    <div class="author-meta">
+      <span><span class="label">Email</span><a href="mailto:ryanchen91322@gmail.com">ryanchen91322@gmail.com</a></span>
+      <span><span class="label">ORCID</span><a href="https://orcid.org/0000-0000-0000-0000" target="_blank" rel="noopener">0000-0000-0000-0000</a></span>
+    </div>
+  </div>
+
+  <nav class="cta" aria-label="Supplementary materials">
+    <a href="#" class="btn btn-primary" aria-label="Download supplementary data">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Supplementary Data
+    </a>
+    <a href="#" class="btn btn-secondary" aria-label="View presentation slides">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="14" rx="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="18" x2="12" y2="21"/>
+      </svg>
+      Presentation Slides
+    </a>
+  </nav>
+
+  <section class="abstract" aria-labelledby="abstract-h">
+    <h2 id="abstract-h">Abstract</h2>
+    <p>Sentinel-1 / Sentinel-2 fusion is critical for flood inundation mapping under cloud cover, yet shared-attention Remote Sensing Foundation Models (RSFMs) have no built-in mechanism to down-weight an occluded modality. On the Sen1Floods11 Bolivia held-out split, a TerraMind baseline collapses on heavy-cloud tiles (IoU<sub>Flood</sub>&nbsp;=&nbsp;0.000), confirming that modality laziness persists at foundation-model scale.</p>
+    <p>We propose a multi-branch evidential head with a law-of-total-variance gate that routes per-pixel weight across S1, S2, and fused branches at inference &mdash; entirely label-free, with no auxiliary cloud detector. The method recovers heavy-cloud performance (IoU<sub>Flood</sub> 0.328&nbsp;&rarr;&nbsp;0.426; Recall 0.431&nbsp;&rarr;&nbsp;0.555) while improving precision, and yields well-calibrated per-branch uncertainties as a free by-product (AUROC up to 0.952 in-distribution).</p>
+  </section>
+
+  <section aria-labelledby="conf-h">
+    <h2 id="conf-h">Conference</h2>
+    <div class="conf">
+      <div class="conf-row">
+        <span class="conf-key">Event</span>
+        <span class="conf-val">EGU General Assembly 2026</span>
+      </div>
+      <div class="conf-row">
+        <span class="conf-key">Location</span>
+        <span class="conf-val">Vienna, Austria</span>
+      </div>
+      <div class="conf-row">
+        <span class="conf-key">Session</span>
+        <span class="conf-val">[Session ID / Title]</span>
+      </div>
+      <div class="conf-row">
+        <span class="conf-key">Format</span>
+        <span class="conf-val">Poster</span>
+      </div>
+      <div class="conf-row">
+        <span class="conf-key">Programme</span>
+        <span class="conf-val"><a href="https://www.egu26.eu/" target="_blank" rel="noopener">egu26.eu &rarr;</a></span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 [Your Name] &middot; Last updated April 2026
+  </footer>
+
+</main>
+</body>
+</html>
