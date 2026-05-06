@@ -226,6 +226,28 @@
     text-align: center;
   }
   footer a { color: var(--ink-mute); }
+
+  /* ---------- Figures ---------- */
+  .figure {
+    margin: 0 0 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .figure figcaption {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+  }
+  .figure figcaption strong { color: var(--ink); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -268,6 +290,18 @@
     <h2 id="abstract-h">Abstract</h2>
     <p>Sentinel-1 / Sentinel-2 fusion is critical for flood inundation mapping under cloud cover, yet shared-attention Remote Sensing Foundation Models (RSFMs) have no built-in mechanism to down-weight an occluded modality. On the Sen1Floods11 Bolivia held-out split, a TerraMind baseline collapses on heavy-cloud tiles (IoU<sub>Flood</sub>&nbsp;=&nbsp;0.000), confirming that modality laziness persists at foundation-model scale.</p>
     <p>We propose a multi-branch evidential head with a law-of-total-variance gate that routes per-pixel weight across S1, S2, and fused branches at inference &mdash; entirely label-free, with no auxiliary cloud detector. The method recovers heavy-cloud performance (IoU<sub>Flood</sub> 0.328&nbsp;&rarr;&nbsp;0.426; Recall 0.431&nbsp;&rarr;&nbsp;0.555) while improving precision, and yields well-calibrated per-branch uncertainties as a free by-product (AUROC up to 0.952 in-distribution).</p>
+  </section>
+
+  <section aria-labelledby="results-h">
+    <h2 id="results-h">Qualitative Result &mdash; Bolivia 60373</h2>
+    <figure class="figure">
+      <img src="Bolivia_60373_fig4_inputs_conf_baseline.png" alt="Bolivia 60373 TerraMind baseline: heavy cloud cover in Sentinel-2, SAR backscatter, and spatial classification result with low IoU.">
+      <figcaption><strong>TerraMind baseline.</strong> Heavy cloud cover collapses optical signal; classifier produces many missed-flood pixels (mIoU 0.469, F1 0.484).</figcaption>
+    </figure>
+    <figure class="figure">
+      <img src="Bolivia_60373_fig4_inputs_conf_edl_fusion.png" alt="Bolivia 60373 EDL fusion: same inputs, with substantially improved spatial flood classification.">
+      <figcaption><strong>Self-gated EDL fusion (ours).</strong> Per-pixel routing recovers flood extent under cloud occlusion (mIoU 0.733, F1 0.824).</figcaption>
+    </figure>
   </section>
 
   <section aria-labelledby="conf-h">
